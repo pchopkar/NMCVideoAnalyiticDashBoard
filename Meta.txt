@@ -1,0 +1,5 @@
+#Uvicorn install to create fastAPI
+python -m pip install fastapi uvicorn[standard]
+
+#strating of app by uvicorn
+uvicorn main:app --reload
