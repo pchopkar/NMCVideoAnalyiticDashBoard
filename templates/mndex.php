@@ -26,7 +26,7 @@
 
     <div class="col-md-6 offset-md-3 mt-5">
     
-         <h1 >NMC Video Analytic Portal</h1>
+         <h1 >NMC Video Analytic DashBoard</h1>
          <br>
          <form accept-charset="UTF-8" action="count" method="POST" enctype="multipart/form-data" target="_blank">
            <!-- <div class="form-group">
@@ -46,13 +46,13 @@
               </select>
            </div> -->
            <div class="form-group">
-            <label for="exampleFormControlSelect1">Medical College</label>
+            <label for="exampleFormControlSelect1">Medicle College</label>
             <select class="form-control" id="exampleFormControlSelect1" name="Medicle College" required="required">
               <option selected>--SELECT--</option>
-              <option value="Delhi Medicle College">Delhi Medical College</option>
-              <option value="Nagpur Medicle College">Nagpur Medical College</option>
-              <option value="Maharashtra Medicle College">Maharashtra Medical College</option>
-              <option value="Punjab Medicle College">Punjab Medical College</option>
+              <option value="Delhi Medicle College">Delhi Medicle College</option>
+              <option value="Nagpur Medicle College">Nagpur Medicle College</option>
+              <option value="Maharashtra Medicle College">Maharashtra Medicle College</option>
+              <option value="Punjab Medicle College">Punjab Medicle College</option>
             </select>
             <br>
              <label for="exampleFormControlSelect1">Camera Location</label>
