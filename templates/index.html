@@ -26,7 +26,7 @@
 
     <div class="col-md-6 offset-md-3 mt-5">
     
-         <h1 >NMC Video Analytic Portal</h1>
+         <h1 align="center" >NMC Video Analytic Portal</h1>
          <br>
          <form accept-charset="UTF-8" action="count" method="POST" enctype="multipart/form-data" target="_blank">
            <!-- <div class="form-group">
@@ -54,8 +54,9 @@
               <option value="Maharashtra Medicle College">Maharashtra Medical College</option>
               <option value="Punjab Medicle College">Punjab Medical College</option>
             </select>
-            <br>
-             <label for="exampleFormControlSelect1">Camera Location</label>
+            <hr>
+       
+             <label for="exampleFormControlSelect1">Area : </label>
              <select class="form-control" id="exampleFormControlSelect1" name="Camera Location" required="required">
                <option selected>--SELECT--</option>
                <option value="OPD">OPD</option>
@@ -63,7 +64,18 @@
                <option value="Lecture Hall">Lecture Hall</option>
                <option value="Lab Area">Lab Area</option>
              </select>
-             <br>
+             <hr>
+
+             <label for="exampleFormControlSelect1">Sub Area :</label>
+             <select class="form-control" id="exampleFormControlSelect1" name="Camera Location" required="required">
+               <option selected>--SELECT--</option>
+               <option value="OPD">Area 1</option>
+               <option value ="DepartMent">Area 2</option>
+               <option value="Lecture Hall">Area 3</option>
+               <option value="Lab Area">Area 4</option>
+             </select>
+             <hr>
+         
              <label for="exampleFormControlSelect1">Date and Time :&nbsp;&nbsp;   
               <input type="datetime-local" id="Test_DatetimeLocal" name="Date and Time">
             </label>
@@ -88,7 +100,12 @@
         
             <!-- </div> -->
             <hr>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <br>
+            <div class="col-md-12 text-center">
+            <button target="_self" type="submit" class="btn btn-primary btn-lg text-center" >Submit</button>
+            </div>
+            <!-- <button  target="_self" type="submit" class="btn btn-primary" >Submit</button> -->
+          
         </div>
         
         <!-- original pen: https://codepen.io/roydigerhund/pen/ZQdbeN  -->
@@ -99,6 +116,43 @@
            </div> -->
 
          </form>
+    
+         {% 
+          if medicle_college and camera_location and date_and_time and count : %}
+         <br>
+         <br>
+         <h1 align="center" >DashBoard</h1>
+         <br>
+          <table class="table" style="width:50%" align="center">
+
+            <thead align="center">
+              <tr>
+              <th class="table-primary">Medicle College </th>
+              <th class="table-primary">{{medicle_college}}</th>
+              </tr>
+            </thead>
+            <thead align="center">
+              <tr>
+                <th class="table-success">Camera Location </th>
+                <th class="table-success">{{camera_location}}</th>
+              </tr>
+              </thead>
+              <thead align="center">
+              <tr>
+                <th class="table-warning">Date And Time </th>
+                <th class="table-warning">{{date_and_time}}</th>
+              </tr>
+              </thead>
+              <thead align="center">
+              <tr>
+                <th class="table-danger">Head Count </th>
+                <th class="table-danger">{{count}}</th>
+              </tr>
+              </thead>
+            </table>
+          
+        {% endif  %}
+
   </body>
 </html>
 
