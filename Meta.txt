@@ -3,3 +3,30 @@ python -m pip install fastapi uvicorn[standard]
 
 #strating of app by uvicorn
 uvicorn main:app --reload
+
+#To create dropdown
+https://www.youtube.com/watch?v=TKl-OW2EiuQ
+https://stackoverflow.com/questions/68852940/how-to-create-two-dependent-dynamic-dropdown-lists-using-flask
+
+
+#install flask 
+pip install flask
+
+#install flask_sqlalchemy
+pip install flask_sqlalchemy
+
+#To install virtual Env
+pip install virtualenv
+
+#To install Virtual Environment
+virtualenv env
+
+#To activatate virtual environment
+c:/Users/Administrator/Desktop/ContactUs/env/Scripts/Activate.ps1
+
+#To run python file
+python .\app.py
+
+#Git Config
+git config user.name pchopkar
+git config user.email chopkarparjanya@gmail.com

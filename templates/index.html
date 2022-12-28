@@ -49,30 +49,27 @@
             <label for="exampleFormControlSelect1">Medical College</label>
             <select class="form-control" id="exampleFormControlSelect1" name="Medicle College" required="required">
               <option selected>--SELECT--</option>
-              <option value="Delhi Medicle College">Delhi Medical College</option>
-              <option value="Nagpur Medicle College">Nagpur Medical College</option>
-              <option value="Maharashtra Medicle College">Maharashtra Medical College</option>
-              <option value="Punjab Medicle College">Punjab Medical College</option>
+              {% for row in med_clg_list %}
+              <option value='{{row}}'>{{row}}</option>
+              {% endfor %}
             </select>
             <hr>
        
-             <label for="exampleFormControlSelect1">Area : </label>
+             <label for="exampleFormControlSelect1">Camera Location Area : </label>
              <select class="form-control" id="exampleFormControlSelect1" name="Camera Location" required="required">
                <option selected>--SELECT--</option>
-               <option value="OPD">OPD</option>
-               <option value ="DepartMent">DepartMent</option>
-               <option value="Lecture Hall">Lecture Hall</option>
-               <option value="Lab Area">Lab Area</option>
+               {% for row in med_clg_list %}
+              <option value='{{row}}'>{{row}}</option>
+              {% endfor %}
              </select>
              <hr>
 
-             <label for="exampleFormControlSelect1">Sub Area :</label>
+             <label for="exampleFormControlSelect1">Camera Location Sub Area :</label>
              <select class="form-control" id="exampleFormControlSelect1" name="Camera Location" required="required">
                <option selected>--SELECT--</option>
-               <option value="OPD">Area 1</option>
-               <option value ="DepartMent">Area 2</option>
-               <option value="Lecture Hall">Area 3</option>
-               <option value="Lab Area">Area 4</option>
+               {% for row in med_clg_list %}
+               <option value='{{row}}'>{{row}}</option>
+               {% endfor %}
              </select>
              <hr>
          
