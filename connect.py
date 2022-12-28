@@ -63,7 +63,24 @@ collection = db.MedcalCollege
 # ])
 # print("Inserted Successfully")
 
-ls  = collection.find({"Medical College":""})
+medical_college="Nagpur Medical College"
+ls  = collection.find({"Medical College" : medical_college})
+nw = []
 for i in ls:
-    print(ls)
-print(type(ls))
+    nw.append(i["Area"])
+
+print(nw)
+# for i in ls:
+#     print(i)
+#     print(i["Medical College"])
+#     nw.append(i["Medical College"]["Area"])
+# collection.insert_many([
+#    {
+#       "Medical College": "Delhi Medical College",
+#       "Area" : ["Main Entrance","Patient Registration Counter","Lecture Theatre","Lab","OPD","Emergency & Casualty Ward","OT","Patient Attendant Waiting Area","Faculty Lounge","Attendance marking area"],
+#       "OPDArea": [ "Area 1","Area 2", "Area 3"],
+#       "LabArea": [ "Area 4","Area 5", "Area 6"],
+#       "LectruHallArea": [ "Area 7","Area 8", "Area 9"],
+#        "DepartmentArea": [ "Area 10","Area 11", "Area 12"],
+#    },
+# ])
