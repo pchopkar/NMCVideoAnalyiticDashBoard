@@ -122,3 +122,30 @@ collection = db.MedicalCollege
 # image_id = images.insert_one(image).inserted_id
 # print(image_id)
 # print("Inserted Successfully")
+
+# images = db.nmcimages
+
+# im = Image.open("opd.jpg") 
+
+# image_bytes = io.BytesIO()
+# im.save(image_bytes, format='png')
+
+# image = {
+#     'imagename' : im.filename,
+#     'data': image_bytes.getvalue(),
+#     'count' : None
+# }
+
+# image_id = images.insert_one(image).inserted_id
+
+# client = MongoClient()
+# db = client.testdb
+
+# images = db.images
+# image = images.find()
+# for i in image :
+#      print(i)
+# print("hello")
+# pil_img = Image.open(io.BytesIO(image['data']))
+# pil_img.imshow(pil_img)
+# pil_img.show()

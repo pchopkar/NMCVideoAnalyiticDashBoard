@@ -8,6 +8,7 @@ import io
 from flask_restful import Resource, Api, reqparse
 import werkzeug
 import json
+from PIL import Image
 
 
 app = Flask(__name__)
@@ -35,7 +36,24 @@ def count():
     camera_location_area = request.form.get("CameraLocationArea")
     camera_location_sub_area = request.form.get("CameraLocationSubArea")
     date_and_time = request.form.get("Date and Time")
-    file = request.files.get("uploadfile")
+    #file = request.files.get("uploadfile")
+    client = c.connectdb()
+    db = client.get_database("NMCVideoAnalytic")
+    images = db.nmcimages
+    image = images.find()
+    imagename = []
+    counts = []
+    for i in image : 
+        files = {
+        'img': ('img.jpg',i.__getitem__("data")),
+        }
+        response = requests.post('http://localhost:5008/api/v1/headcount', files=files)
+        count = json.loads(response.text)
+        count = count.__getitem__("head-count")
+        imagename.append(i.__getitem__("imagename"))
+        counts.append(count)
+    length = len(counts)
+    #pil_img = Image.open(io.BytesIO(image['data']))
 
     # parse = reqparse.RequestParser()
     # parse.add_argument('file', type=werkzeug.datastructures.FileStorage, location='files')
@@ -65,15 +83,16 @@ def count():
     # # 'Content-Type': 'multipart/form-data',
     # }
 
-    files = {
-        'img': ('img.jpg',file),
-    }
-    filename=file.filename
-    response = requests.post('http://localhost:5008/api/v1/headcount', files=files)
-    count = json.loads(response.text)
-    count = count.__getitem__("head-count")
-    print(count)
-    return render_template('thankyou.html', medicle_college=medicle_college, camera_location_area=camera_location_area, camera_location_sub_area=camera_location_sub_area,date_and_time=date_and_time,count=count,filename=filename) 
+    # files = {
+    #     'img': ('img.jpg',file),
+    # }
+    # filename=file.filename
+    # response = requests.post('http://localhost:5008/api/v1/headcount', files=files)
+    # count = json.loads(response.text)
+    # count = count.__getitem__("head-count")
+    # print(count)
+    #count = 5
+    return render_template('thankyou.html', medicle_college=medicle_college, camera_location_area=camera_location_area, camera_location_sub_area=camera_location_sub_area,date_and_time=date_and_time,count=counts,filename=imagename,length=length) 
 
 @app.route('/back', methods=['GET','POST'])
 def back():

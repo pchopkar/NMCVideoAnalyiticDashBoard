@@ -126,7 +126,7 @@
          </form>
     
          {% 
-          if medicle_college and camera_location_area and camera_location_sub_area and date_and_time and count : %}
+          if medicle_college and camera_location_area and camera_location_sub_area and date_and_time and filename and count : %}
          <br>
          
          <h1 align="center" >DashBoard</h1>
@@ -169,12 +169,15 @@
                   </tr>
                 </thead>
                 <tbody align="center">
-                  <tr>
+                  
+                    {% for i in range(0,len(filename)) %}
+                    <tr>
+                    <td>{{filename[i]}}</td>
+                    <td>{{count[i]}}</td>
+                    </tr>
+                    {% endfor %}
                     <!-- <th scope="row">1</th> -->
-                    <td>{{filename}}</td>
-                    <td>{{count}}</td>
-                    
-                  </tr>
+
                   
                 </tbody>
               </table>
