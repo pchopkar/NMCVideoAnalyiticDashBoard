@@ -68,12 +68,12 @@
 				</tr>
 			  </thead>
 			  <tbody align="center">
+				{% for i in range(length) %}
 				<tr>
-				  <!-- <th scope="row">1</th> -->
-				  <td>{{filename}}</td>
-				  <td>{{count}}</td>
-				  
+				<td>{{filename[i]}}</td>
+				<td>{{counts[i]}}</td>
 				</tr>
+				{% endfor %}
 				
 			  </tbody>
 			</table>
