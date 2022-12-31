@@ -85,21 +85,21 @@
              <hr>
          
              <label for="exampleFormControlSelect1">Date and Time :&nbsp;&nbsp;   
-              <input type="datetime-local" id="Test_DatetimeLocal" name="Date and Time">
+              <input type="datetime-local" id="Test_DatetimeLocal" name="Test_DatetimeLocal">
             </label>
 
            </div>
            <hr>
            <!-- <div class="frame"> -->
             <!-- <div class="center"> -->
-                <div class="title">
+                <!-- <div class="title">
                     <label for="exampleInputName">Upload a file</label>
-                </div>
+                </div> -->
         
-                <div class="dropzone">
-                    <!-- <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" /> -->
+                <!-- <div class="dropzone">
+                    <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" />
                     <input type="file" name="uploadfile" class="upload-input" />
-                </div>
+                </div> -->
         
                 <!-- <button type="button" class="btn" name="uploadbutton">Upload file</button> -->
     
@@ -110,7 +110,7 @@
            
             <br>
             <div class="col-md-12 text-center">
-            <button target="_self" type="submit" class="btn btn-primary btn-lg text-center" >Submit</button>
+            <button name="submitCount"  id="submitCount" target="_self" type="submit" class="btn btn-primary btn-lg text-center" >Submit</button>
             </div>
             <!-- <button  target="_self" type="submit" class="btn btn-primary" >Submit</button> -->
           
@@ -199,6 +199,7 @@
           $(document).ready(function () {
            
             var medicalcollegelistValue;
+            var CameraLocationAreaValue;
             $(document).on("change", "#medicalcollegelist", function () {
               medicalcollegelistValue = $("#medicalcollegelist").val();
              
@@ -231,7 +232,7 @@
                       }
           
                         $(document).on("change", "#CameraLocationArea", function () {
-                          var CameraLocationAreaValue =  $("#CameraLocationArea").val();
+                           CameraLocationAreaValue =  $("#CameraLocationArea").val();
                           console.log(CameraLocationAreaValue)
                          
                           load_data_subarea(CameraLocationAreaValue);
@@ -260,6 +261,37 @@
                                       },
                                   });
                                 }
+
+                                /* $(document).on("submit", "#submitCount", function () {
+                                  var CameraLocationSubAreaValue =  $("#CameraLocationSubArea").val();
+                                  var Test_DatetimeLocalValue =  $("#Test_DatetimeLocal").val();
+                                  load_submit(CameraLocationSubAreaValue,Test_DatetimeLocalValue);
+                                
+                                });
+                                
+                                function load_submit( CameraLocationSubAreaValue,Test_DatetimeLocalValue) {
+                                  $.ajax({
+                                      url: "/count",
+                                      method: "POST",
+                                      data: {medicalcollegelistValue,CameraLocationAreaValue,CameraLocationSubAreaValue,Test_DatetimeLocalValue},
+                                      dataType: "json",
+                                      success: function (data) { 
+                  
+                                        var html = "";
+                                        coll=data[0]
+                                                  for (var count = 0; count < coll.length; count++) {
+                                                   
+                                                      html += '<option value="' + coll[count] + '">' + coll[count] + "</option>";
+                                                  } 
+                                                
+                      
+                                                      $("#CameraLocationSubArea").html(html);
+                                                      
+                                                    
+                                                  
+                                              },
+                                          });
+                                        } */
            
           });
           

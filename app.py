@@ -35,7 +35,7 @@ def count():
     medicle_college = request.form.get("medicalcollegelist")
     camera_location_area = request.form.get("CameraLocationArea")
     camera_location_sub_area = request.form.get("CameraLocationSubArea")
-    date_and_time = request.form.get("Date and Time")
+    date_and_time = request.form.get("Test_DatetimeLocal")
     #file = request.files.get("uploadfile")
     client = c.connectdb()
     db = client.get_database("NMCVideoAnalytic")
@@ -47,9 +47,15 @@ def count():
         files = {
         'img': ('img.jpg',i.__getitem__("data")),
         }
-        response = requests.post('http://localhost:5008/api/v1/headcount', files=files)
-        count = json.loads(response.text)
-        count = count.__getitem__("head-count")
+        if i.__getitem__("count") is None:
+            response = requests.post('http://localhost:5008/api/v1/headcount', files=files)
+            count = json.loads(response.text)
+            count = count.__getitem__("head-count")
+            filtr = {"imagename":i.__getitem__("imagename")}
+            updtval = {"$set":{"count":count}} 
+            db.nmcimages.update_one(filtr,updtval)
+        else :
+            count = i.__getitem__("count")
         imagename.append(i.__getitem__("imagename"))
         counts.append(count)
     length = len(counts)
@@ -91,7 +97,9 @@ def count():
     # count = json.loads(response.text)
     # count = count.__getitem__("head-count")
     # print(count)
-    #count = 5
+    # counts = ['5','6']
+    # imagename = ["abc.png","pqr.png"]
+    # length = 2
     return render_template('thankyou.html', medicle_college=medicle_college, camera_location_area=camera_location_area, camera_location_sub_area=camera_location_sub_area,date_and_time=date_and_time,count=counts,filename=imagename,length=length) 
 
 @app.route('/back', methods=['GET','POST'])
