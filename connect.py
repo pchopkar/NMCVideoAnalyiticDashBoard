@@ -1,6 +1,8 @@
 import pymongo
 from PIL import Image
 import io
+import base64
+import gridfs
 def connectdb() :
 #if __name__=="__main__":
     print("Insert connect.py")
@@ -110,20 +112,36 @@ collection = db.MedicalCollege
 #    },
 # ])
 
+
+
 # images = db.nmcimages
 
-# im = Image.open("NMC.png") 
-# #image_bytes = io.BytesIO(im)
-# #im.save(im, format='png')
+# im = Image.open("classroom.jpg") 
+
+# image_bytes = io.BytesIO()
+# im.save(image_bytes, format='png')
+
 # image = {
-#     'data': im.getvalue()
+#     'imagename' : im.filename,
+#     'data': image_bytes.getvalue(),
+#     'count' : None
 # }
 
 # image_id = images.insert_one(image).inserted_id
-# print(image_id)
-# print("Inserted Successfully")
 
-# images = db.nmcimages
+# im = Image.open("NMC.png") 
+
+# image_bytes = io.BytesIO()
+# im.save(image_bytes, format='png')
+
+# image = {
+#     'imagename' : im.filename,
+#     'data': image_bytes.getvalue(),
+#     'count' : None
+# }
+
+# image_id = images.insert_one(image).inserted_id
+
 
 # im = Image.open("opd.jpg") 
 
@@ -138,6 +156,22 @@ collection = db.MedicalCollege
 
 # image_id = images.insert_one(image).inserted_id
 
+# im = Image.open("opd-inner.png") 
+
+# image_bytes = io.BytesIO()
+# im.save(image_bytes, format='png')
+
+# image = {
+#     'imagename' : im.filename,
+#     'data': image_bytes.getvalue(),
+#     'count' : None
+# }
+
+# image_id = images.insert_one(image).inserted_id
+# #print(image_id)
+# print("Inserted Successfully")
+
+
 # client = MongoClient()
 # db = client.testdb
 
@@ -149,3 +183,17 @@ collection = db.MedicalCollege
 # pil_img = Image.open(io.BytesIO(image['data']))
 # pil_img.imshow(pil_img)
 # pil_img.show()
+
+
+#db = db.nmcimages
+# encode your image to binary text
+# with open("classroom.jpg", "rb") as image:
+#     # read the image as text and convert it to binary
+#     image_string = base64.b64encode(image.read())
+#     image_string = "data:image/jpeg;base64," + str(image_string)
+
+# # create Gridfs instance
+# fs = gridfs.GridFS(db, "fs")
+
+# # add the image to your database
+# put_image = fs.put(image_string, encoding='utf-8')

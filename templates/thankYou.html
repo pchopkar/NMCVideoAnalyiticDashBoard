@@ -32,46 +32,49 @@
         
 		<table class="table" style="width:50%" align="center">
 
-		  <thead align="center">
+		  <tbody align="center">
 			<tr>
-			<th class="table-primary">Medicle College </th>
-			<th class="table-primary">{{medicle_college}}</th>
+			<td class="table-primary"><b>Medicle College</b> </td>
+			<td class="table-primary"><b>{{medicle_college}}</b></td>
 			</tr>
-		  </thead>
-		  <thead align="center">
+		</tbody>
+		  <tbody align="center">
 			<tr>
-			  <th class="table-success">Camera Location Area </th>
-			  <th class="table-success">{{camera_location_area}}</th>
+			  <td class="table-success"><b>Camera Location Area </b></td>
+			  <td class="table-success"><b>{{camera_location_area}}</b></td>
 			</tr>
-			</thead>
-			<thead align="center">
+		</tbody>
+			<tbody align="center">
 			  <tr>
-				<th class="table-danger">Camera Location Sub Area</th>
-				<th class="table-danger">{{camera_location_sub_area}}</th>
+				<td class="table-danger"><b>Camera Location Sub Area</b></td>
+				<td class="table-danger"><b>{{camera_location_sub_area}}</b></td>
 			  </tr>
-			  </thead>
-			<thead align="center">
+			</tbody>
+			<tbody align="center">
 			<tr>
-			  <th class="table-warning">Date And Time </th>
-			  <th class="table-warning">{{date_and_time}}</th>
+			  <td class="table-warning"><b>Date And Time </b></td>
+			  <td class="table-warning"><b>{{date_and_time}}</b></td>
 			</tr>
-			</thead>
+		</tbody>
 			<br>
 			<br>
 			<table  style="width:50%" align="center" border="1px solid black">
-			  <thead align="center">
-				<tr>
-				  <!-- <th scope="col">#</th> -->
-				  <th scope="col">Image Name</th>
-				  <th scope="col">Count</th>
-				 
-				</tr>
-			  </thead>
+				<tbody align="center">
+					<tr align="center">
+					  <!-- <th scope="col">#</th> -->
+					  <td scope="col"><b>Image Name</b></td>
+					  <td scope="col"><b>Count</b></td>
+					 
+					</tr>
+				</tbody>
 			  <tbody align="center">
-				{% for i in range(length) %}
+				{% for i in range(length) :  %}
 				<tr>
-				<td>{{filename[i]}}</td>
+				<!-- <td><a href=""><img id="imageview" src="" onclick="get_viewimage_view({{imageview[i]}})">{{filename[i]}}</a></td> -->
+				<!-- <img id="image" src="https://media.geeksforgeeks.org/wp-content/uploads/20210915115837/gfg3.png" alt="GFG image" /> -->
+				<td><a href=""  data-toggle="modal" data-target="#myModal" onclick="get_viewimage_view('{{imageview[i]}}')">{{filename[i]}}</a></td>
 				<td>{{count[i]}}</td>
+				<td><img id="imageview" src={{imageview[i]}}></td>
 				</tr>
 				{% endfor %}
 				
@@ -94,5 +97,59 @@
 	   </div>
 	</form>
 	<br>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<div class="container">
+  <!-- Trigger the modal with a button -->
+  <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div>
+        <div class="modal-body" id="imageviewidf">
+			<img id="imageviewid" src="" width="200px"></img>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+<script>
+	function get_viewimage_view(imageview){
+		//alert('hello')
+		alert(imageview)
+		
+		
+		//$("#viewimage_details").html(<img src="@imgSrc" width="100px"></img>);
+		document.getElementById("imageviewid").src = "data:image/jpeg;base64," + imageview;
+		//$("#imageviewid").html(<img src="imageview" width="100px"></img>);
+	}
+/*function show() {
+	
+            /* Access image by id and change
+            the display property to block
+			//$("#imageview").html(<img id="image" src="" width="100px"></img>);
+			$("#imageview").html(<img id="image" src="" width="100px"></img>);
+            document.getElementById('image')
+                    .style.display = "block";
+ 
+            document.getElementById('btnID')
+                    .style.display = "none";
+        }*/
+</script>
 </body>
 </html>

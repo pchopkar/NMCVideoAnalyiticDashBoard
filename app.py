@@ -43,6 +43,7 @@ def count():
     image = images.find()
     imagename = []
     counts = []
+    imageview=[]
     for i in image : 
         files = {
         'img': ('img.jpg',i.__getitem__("data")),
@@ -57,6 +58,7 @@ def count():
         else :
             count = i.__getitem__("count")
         imagename.append(i.__getitem__("imagename"))
+        imageview.append(i.__getitem__("data"))
         counts.append(count)
     length = len(counts)
     #pil_img = Image.open(io.BytesIO(image['data']))
@@ -100,11 +102,13 @@ def count():
     # counts = ['5','6']
     # imagename = ["abc.png","pqr.png"]
     # length = 2
-    return render_template('thankyou.html', medicle_college=medicle_college, camera_location_area=camera_location_area, camera_location_sub_area=camera_location_sub_area,date_and_time=date_and_time,count=counts,filename=imagename,length=length) 
+    return render_template('thankyou.html', medicle_college=medicle_college, camera_location_area=camera_location_area, camera_location_sub_area=camera_location_sub_area,date_and_time=date_and_time,count=counts,filename=imagename,length=length,imageview=imageview) 
 
 @app.route('/back', methods=['GET','POST'])
 def back():
-    return render_template('index.html')
+    ret  = hello_world()
+     #return render_template('index.html')
+    return ret
 
 @app.route("/cameraArea",methods=["POST","GET"])
 def cameraArea():  
