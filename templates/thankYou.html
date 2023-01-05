@@ -74,7 +74,6 @@
 				<!-- <img id="image" src="https://media.geeksforgeeks.org/wp-content/uploads/20210915115837/gfg3.png" alt="GFG image" /> -->
 				<td><a href=""  data-toggle="modal" data-target="#myModal" onclick="get_viewimage_view('{{imageview[i]}}')">{{filename[i]}}</a></td>
 				<td>{{count[i]}}</td>
-				<td><img id="imageview" src={{imageview[i]}}></td>
 				</tr>
 				{% endfor %}
 				
@@ -117,7 +116,7 @@
           
         </div>
         <div class="modal-body" id="imageviewidf">
-			<img id="imageviewid" src="" width="200px"></img>
+			<img id="imageviewid" src="" width="450px"></img>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -131,11 +130,8 @@
 <script>
 	function get_viewimage_view(imageview){
 		//alert('hello')
-		alert(imageview)
-		
-		
 		//$("#viewimage_details").html(<img src="@imgSrc" width="100px"></img>);
-		document.getElementById("imageviewid").src = "data:image/jpeg;base64," + imageview;
+		document.getElementById("imageviewid").src =  imageview;
 		//$("#imageviewid").html(<img src="imageview" width="100px"></img>);
 	}
 /*function show() {

@@ -58,7 +58,10 @@ def count():
         else :
             count = i.__getitem__("count")
         imagename.append(i.__getitem__("imagename"))
-        imageview.append(i.__getitem__("data"))
+        imagev = base64.b64encode(i.__getitem__("data"))
+        imagev = imagev.decode('utf-8')
+        imagev = "data:image/jpeg;base64," + imagev
+        imageview.append(imagev)
         counts.append(count)
     length = len(counts)
     #pil_img = Image.open(io.BytesIO(image['data']))
