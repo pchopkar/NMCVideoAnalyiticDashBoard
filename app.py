@@ -9,33 +9,36 @@ from flask_restful import Resource, Api, reqparse
 import werkzeug
 import json
 from PIL import Image
-
+from datetime import datetime
 
 app = Flask(__name__)
 @app.route('/')
 def hello_world():
+    return render_template("index.html",med_clg_list=get_med_list()) 
+
+def get_med_list():
     client = c.connectdb()
     db = client.get_database("NMCVideoAnalytic")
     collection = db.MedicalCollege
     allData  = collection.find()
     med_clg_list = []
     for i in allData:
-        med_clg_list.append(i["Medical College"])    
-
-    return render_template("index.html",med_clg_list=med_clg_list) 
+        med_clg_list.append(i["Medical College"])  
+    return med_clg_list
 
 @app.route('/count', methods=['GET','POST'])
-def count():
+def countdf():
     print("Inside Count Function")
     headers = {
     'accept': 'application/json',
     }
 
-
+    med_clg_list=get_med_list() 
     medicle_college = request.form.get("medicalcollegelist")
     camera_location_area = request.form.get("CameraLocationArea")
     camera_location_sub_area = request.form.get("CameraLocationSubArea")
     date_and_time = request.form.get("Test_DatetimeLocal")
+    datetime_object = datetime.strptime(date_and_time, "%Y-%m-%dT%H:%M")
     #file = request.files.get("uploadfile")
     client = c.connectdb()
     db = client.get_database("NMCVideoAnalytic")
@@ -65,7 +68,6 @@ def count():
         counts.append(count)
     length = len(counts)
     #pil_img = Image.open(io.BytesIO(image['data']))
-
     # parse = reqparse.RequestParser()
     # parse.add_argument('file', type=werkzeug.datastructures.FileStorage, location='files')
     # args = parse.parse_args()
@@ -105,8 +107,9 @@ def count():
     # counts = ['5','6']
     # imagename = ["abc.png","pqr.png"]
     # length = 2
-    return render_template('thankyou.html', medicle_college=medicle_college, camera_location_area=camera_location_area, camera_location_sub_area=camera_location_sub_area,date_and_time=date_and_time,count=counts,filename=imagename,length=length,imageview=imageview) 
-
+    #return render_template('thankyou.html', medicle_college=medicle_college, camera_location_area=camera_location_area, camera_location_sub_area=camera_location_sub_area,date_and_time=date_and_time,count=counts,filename=imagename,length=length,imageview=imageview) 
+    return render_template('index.html', med_clg_list=med_clg_list,medicle_college=medicle_college, camera_location_area=camera_location_area, camera_location_sub_area=camera_location_sub_area,date_and_time=datetime_object,count=counts,filename=imagename,length=length,imageview=imageview) 
+    #return jsonify( med_clg_list=med_clg_list,medicle_college=medicle_college, camera_location_area=camera_location_area, camera_location_sub_area=camera_location_sub_area,date_and_time=datetime_object,count=counts,filename=imagename,length=length,imageview=imageview)
 @app.route('/back', methods=['GET','POST'])
 def back():
     ret  = hello_world()
@@ -129,7 +132,7 @@ def cameraArea():
             nw.append(i["Area"])
 
     return jsonify(nw)
-
+    
 @app.route("/cameraSubArea",methods=["POST","GET"])
 def cameraSubArea():  
 

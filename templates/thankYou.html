@@ -51,11 +51,17 @@
 			  </tr>
 			</tbody>
 			<tbody align="center">
-			<tr>
-			  <td class="table-warning"><b>Date And Time </b></td>
-			  <td class="table-warning"><b>{{date_and_time}}</b></td>
-			</tr>
-		</tbody>
+				<tr>
+				  <td class="table-warning"><b>Date </b></td>
+				  <td class="table-warning"><b>{{date_and_time.strftime("%B %d, %Y")}}</b></td>
+				</tr>
+			  </tbody>
+			  <tbody align="center">
+				<tr>
+				  <td class="table-info"><b>Time </b></td>
+				  <td class="table-info"><b>{{date_and_time.strftime("%I:%M %p")}}</b></td>
+				</tr>
+			  </tbody>
 			<br>
 			<br>
 			<table  style="width:50%" align="center" border="1px solid black">
