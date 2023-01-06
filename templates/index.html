@@ -28,15 +28,11 @@
     
          <h1 align="center" >NMC Video Analytic Portal</h1>
          <br>
-          <form accept-charset="UTF-8" action="count"  method="POST" enctype="multipart/form-data" >
-           <div class="form-group">
+          <form accept-charset="UTF-8" action="count" id="formId" method="POST" enctype="multipart/form-data" >
+           <div  class="form-group">
             <label for="exampleFormControlSelect1">Medical College :</label>
-            <!-- <select title="Select Medical College"  name="medicalcollegelist"  >
-              {% for row in med_clg_list %}
-              <option value='{{row}}'>{{row}}</option>
-              {% endfor %}
-            </select> -->
-            <select title="Select Medical College" class="form-control select-input placeholder-active active focused" id="medicalcollegelist"  name="medicalcollegelist" >
+      
+            <select required title="Select Medical College" class="form-control select-input placeholder-active active focused" id="medicalcollegelist"  name="medicalcollegelist" >
               <option selected>--SELECT--</option>
               {% for row in med_clg_list %}
               <option value='{{row}}'>{{row}}</option>
@@ -45,30 +41,20 @@
             <hr/>
        
              <label for="exampleFormControlSelect1">Camera Location Area : </label>
-             <!-- <select class="form-control" id="CameraLocationArea" name="CameraLocationArea" required="required">
-               <option selected>--SELECT--</option>
-               {% for row in med_clg_list %}
-              <option value='{{row}}'>{{row}}</option>
-              {% endfor %}
-             </select> -->
-             <select name="CameraLocationArea"  id="CameraLocationArea" class="form-control" title="Select Camera Area">
+            
+             <select required name="CameraLocationArea"  id="CameraLocationArea" class="form-control" title="Select Camera Area">
               <option selected>--SELECT--</option> </select>
              <hr/>
 
              <label for="exampleFormControlSelect1">Camera Location Sub Area :</label>
-             <!-- <select class="form-control" id="CameraLocationSubArea" name="CameraLocationSubArea" required="required" title="Select Camera Sub Area">
-
-               {% for row in med_clg_list %}
-               <option value='{{row}}'>{{row}}</option>
-               {% endfor %}
-             </select> -->
-             <select name="CameraLocationSubArea" data-live-search="true" id="CameraLocationSubArea" class="form-control" title="Select Camera Sub Area"> 
+           
+             <select required name="CameraLocationSubArea" data-live-search="true" id="CameraLocationSubArea" class="form-control" title="Select Camera Sub Area"> 
               <option selected>--SELECT--</option>
              </select>
              <hr/>
          
              <label for="exampleFormControlSelect1">Date and Time :&nbsp;&nbsp;   
-              <input type="datetime-local" id="Test_DatetimeLocal" name="Test_DatetimeLocal">
+              <input required type="datetime-local" id="Test_DatetimeLocal" name="Test_DatetimeLocal">
             </label>
 
            </div>
@@ -108,11 +94,7 @@
                
            <table class="table" style="width:50%" align="center">
             
-            <!-- <tbody align="center">
-             <tr>
-             <td colspan="2"><h1>DashBoard<br></h1> </td>
-             </tr>
-      </tbody> -->
+        
              <tbody align="center">
              <tr>
              <td class="table-primary"><b>Medicle College</b> </td>
@@ -319,6 +301,17 @@
             };
 
           }
+
+          document.getElementById('formId').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var selectedMedical = document.getElementById('medicalcollegelist').value;
+            if (selectedMedical === '--SELECT--') {
+              alert('Please select a medical college from the list');
+              return;
+            }
+            this.submit();
+          });
+          
           
         </script>
   </body>
