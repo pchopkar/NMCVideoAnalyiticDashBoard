@@ -3,22 +3,23 @@ from PIL import Image
 import io
 import base64
 import gridfs
+from datetime import datetime, time
 def connectdb() :
 #if __name__=="__main__":
-    print("Insert connect.py")
-    client = pymongo.MongoClient("mongodb://localhost:27017/")
-    print("Connect Done at :" + str(client))
+    try:
+        client = pymongo.MongoClient("mongodb://localhost:27017/")
+    except Exception as e:
+        print(e)
+
     return client
 
 def connectatlasdb():
     print("Inside Atlas connect function")
-    
-    client = pymongo.MongoClient("mongodb+srv://test:test@cluster0.sbkseac.mongodb.net/?retryWrites=true&w=majority")
-    #db = client.test
+    try :
+        client = pymongo.MongoClient("mongodb+srv://test:test@cluster0.sbkseac.mongodb.net/?retryWrites=true&w=majority")
+    except Exception as e:
+        print(e)
 
-    #client = pymongo.MongoClient("mongodb+srv://test:test@cluster0.sbkseac.mongodb.net/?retryWrites=true&w=majority")
-    print("Connect Done at :" + str(client))
-    print(client.list_database_names())
     return client
 
  
@@ -113,9 +114,15 @@ collection = db.MedicalCollege
 # ])
 
 
-
+#Important to insert images
 # images = db.nmcimages
 
+
+
+# now = datetime.utcnow()
+# #datetime_object = datetime.strptime(str(now), "%Y-%m-%d %H:%M:%S.S")
+# date = now.strftime("%B %d, %Y")
+# timed = now.strftime("%I:%M %p")
 # im = Image.open("classroom.jpg") 
 
 # image_bytes = io.BytesIO()
@@ -124,38 +131,14 @@ collection = db.MedicalCollege
 # image = {
 #     'imagename' : im.filename,
 #     'data': image_bytes.getvalue(),
-#     'count' : None
+#     'count' : None,
+#     "date": date,
+#     "time": timed
 # }
 
 # image_id = images.insert_one(image).inserted_id
 
-# im = Image.open("NMC.png") 
-
-# image_bytes = io.BytesIO()
-# im.save(image_bytes, format='png')
-
-# image = {
-#     'imagename' : im.filename,
-#     'data': image_bytes.getvalue(),
-#     'count' : None
-# }
-
-# image_id = images.insert_one(image).inserted_id
-
-
-# im = Image.open("opd.jpg") 
-
-# image_bytes = io.BytesIO()
-# im.save(image_bytes, format='png')
-
-# image = {
-#     'imagename' : im.filename,
-#     'data': image_bytes.getvalue(),
-#     'count' : None
-# }
-
-# image_id = images.insert_one(image).inserted_id
-
+# now = datetime.utcnow()
 # im = Image.open("opd-inner.png") 
 
 # image_bytes = io.BytesIO()
@@ -164,12 +147,14 @@ collection = db.MedicalCollege
 # image = {
 #     'imagename' : im.filename,
 #     'data': image_bytes.getvalue(),
-#     'count' : None
+#     'count' : None,
+#     "date": date,
+#     "time": timed
 # }
 
 # image_id = images.insert_one(image).inserted_id
-# #print(image_id)
-# print("Inserted Successfully")
+
+
 
 
 # client = MongoClient()
