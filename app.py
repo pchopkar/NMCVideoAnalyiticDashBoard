@@ -4,23 +4,28 @@ import connect as c
 import base64
 import json
 from datetime import datetime
-
+import logging
+logging.basicConfig(level=logging.INFO)
 app = Flask(__name__)
 @app.route('/')
 def hello_world():
+    logging.info("Opening Index.html")
     return render_template("index.html",med_clg_list=get_med_list()) 
 
 def get_med_list():
     try:
+        logging.info("Inside get_med_list()")
         client = c.connectdb()
         db = client.get_database("NMCVideoAnalytic")
         collection = db.MedicalCollege
         allData  = collection.find()
         med_clg_list = []
         for i in allData:
-            med_clg_list.append(i["Medical College"])  
+            med_clg_list.append(i["Medical College"])
+        logging.info("Done from get_med_list()")
     except Exception as e:
         print(e)
+        logging.info("Inside exception of get_med_list()")
     finally:
         client.close()
     return med_clg_list
@@ -28,6 +33,7 @@ def get_med_list():
 @app.route('/count', methods=['GET','POST'])
 def countdf():
     try:
+        logging.info("Inside countdf()")
         headers = {
         'accept': 'application/json',
         }
@@ -74,12 +80,14 @@ def countdf():
             imagename.append(i.__getitem__("imagename"))
             imagev = base64.b64encode(i.__getitem__("data"))
             imagev = imagev.decode('utf-8')
-            imagev = "data:image/jpeg;base64," + imagev
+            imagev = "data:image/jpe    g;base64," + imagev
             imageview.append(imagev)
             counts.append(count)
         length = len(counts)
+        logging.info("Done from countdf()")
     except Exception as e:
         print(e)
+        logging.info("Inside exception of countdf()")
 
     finally:
         client.close()
@@ -107,6 +115,7 @@ def countdf():
 def cameraArea():  
 
     try:
+        logging.info("Inside of cameraArea()")
         if request.method == 'POST':
             medicalcollegelistValue = request.form['medicalcollegelistValue'] 
             client = c.connectdb()
@@ -116,9 +125,10 @@ def cameraArea():
             nw = []
             for i in ls:
                 nw.append(i["Area"])
+            logging.info("Done of cameraArea()")
     except Exception as e:
         print(e)
-    
+        logging.info("Inside exception of cameraArea()")
     finally:
         client.close()
     return jsonify(nw)
@@ -127,6 +137,7 @@ def cameraArea():
 def cameraSubArea():  
 
     try:
+        logging.info("Inside of cameraSubArea()")
         if request.method == 'POST':
             medicalcollegelistValue = request.form['medicalcollegelistValue'] 
             
@@ -140,8 +151,10 @@ def cameraSubArea():
                 # outputObj = {
                 #     'name': i["Area"]}
                 nw.append(i[CameraLocationAreaValue])
+            logging.info("Done of cameraSubArea()")
     except Exception as e:
         print(e)
+        logging.info("Inside exception of cameraSubArea()")
     finally:
         client.close()
 
