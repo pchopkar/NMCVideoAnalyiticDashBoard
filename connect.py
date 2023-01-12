@@ -1,32 +1,35 @@
 import pymongo
-from PIL import Image
 import io
 import base64
-import gridfs
 from datetime import datetime, time
+import logging
+logging.basicConfig(level=logging.INFO)
 def connectdb() :
 #if __name__=="__main__":
     try:
+        logging.info("Inside connectdb()")
         client = pymongo.MongoClient("mongodb://localhost:27017/")
+        logging.info("Done of connectdb()")
     except Exception as e:
         print(e)
-
+        logging.info("Inside exception of connectdb()")
     return client
 
 def connectatlasdb():
     print("Inside Atlas connect function")
     try :
         client = pymongo.MongoClient("mongodb+srv://test:test@cluster0.sbkseac.mongodb.net/?retryWrites=true&w=majority")
+        print("Connect Done at :" + str(client))
     except Exception as e:
         print(e)
 
     return client
 
  
-#client = connectatlasdb()
-client = connectdb()
-db = client.get_database("NMCVideoAnalytic")
-collection = db.MedicalCollege
+# client = connectatlasdb()
+# #client = connectdb()
+# db = client.get_database("NMCVideoAnalytic")
+# collection = db.MedicalCollege
 #dictionary = {"Full Name" : "Parjanya Chopkar", "Email" : "chopkarparjanya@gmail.com", "Message" : "Hello World"}
 #You have to create one dictionary for mat object and insert one row then only you can see table on mongoDb compass
 #collection.insert_one(dictionary)
@@ -91,43 +94,17 @@ collection = db.MedicalCollege
 # ])
 # print("Inserted Successfully")
 
-# medical_college="Nagpur Medical College"
-# ls  = collection.find({"Medical College" : medical_college})
-# nw = []
-# for i in ls:
-#     nw.append(i["Area"])
-
-# print(nw)
-# for i in ls:
-#     print(i)
-#     print(i["Medical College"])
-#     nw.append(i["Medical College"]["Area"])
-# collection.insert_many([
-#    {
-#       "Medical College": "Delhi Medical College",
-#       "Area" : ["Main Entrance","Patient Registration Counter","Lecture Theatre","Lab","OPD","Emergency & Casualty Ward","OT","Patient Attendant Waiting Area","Faculty Lounge","Attendance marking area"],
-#       "OPDArea": [ "Area 1","Area 2", "Area 3"],
-#       "LabArea": [ "Area 4","Area 5", "Area 6"],
-#       "LectruHallArea": [ "Area 7","Area 8", "Area 9"],
-#        "DepartmentArea": [ "Area 10","Area 11", "Area 12"],
-#    },
-# ])
-
 
 #Important to insert images
+
 # images = db.nmcimages
-
-
-
+# #Image1
 # now = datetime.utcnow()
-# #datetime_object = datetime.strptime(str(now), "%Y-%m-%d %H:%M:%S.S")
 # date = now.strftime("%B %d, %Y")
 # timed = now.strftime("%I:%M %p")
 # im = Image.open("classroom.jpg") 
-
 # image_bytes = io.BytesIO()
 # im.save(image_bytes, format='png')
-
 # image = {
 #     'imagename' : im.filename,
 #     'data': image_bytes.getvalue(),
@@ -135,15 +112,16 @@ collection = db.MedicalCollege
 #     "date": date,
 #     "time": timed
 # }
-
 # image_id = images.insert_one(image).inserted_id
+# print("Inserted 1")
 
+# #Image2
 # now = datetime.utcnow()
-# im = Image.open("opd-inner.png") 
-
+# date = now.strftime("%B %d, %Y")
+# timed = now.strftime("%I:%M %p")
+# im = Image.open("NMC.png") 
 # image_bytes = io.BytesIO()
 # im.save(image_bytes, format='png')
-
 # image = {
 #     'imagename' : im.filename,
 #     'data': image_bytes.getvalue(),
@@ -151,34 +129,52 @@ collection = db.MedicalCollege
 #     "date": date,
 #     "time": timed
 # }
-
 # image_id = images.insert_one(image).inserted_id
+# print("Inserted 2")
+
+# #Image3
+# now = datetime.utcnow()
+# date = now.strftime("%B %d, %Y")
+# timed = now.strftime("%I:%M %p")
+# im = Image.open("opd-inner.png") 
+# image_bytes = io.BytesIO()
+# im.save(image_bytes, format='png')
+# image = {
+#     'imagename' : im.filename,
+#     'data': image_bytes.getvalue(),
+#     'count' : None,
+#     "date": date,
+#     "time": timed
+# }
+# image_id = images.insert_one(image).inserted_id
+# print("Inserted 3")
+
+# #Image4
+# now = datetime.utcnow()
+# date = now.strftime("%B %d, %Y")
+# timed = now.strftime("%I:%M %p")
+# im = Image.open("opd.jpg") 
+# image_bytes = io.BytesIO()
+# im.save(image_bytes, format='png')
+# image = {
+#     'imagename' : im.filename,
+#     'data': image_bytes.getvalue(),
+#     'count' : None,
+#     "date": date,
+#     "time": timed
+# }
+# image_id = images.insert_one(image).inserted_id
+# print("Inserted 4")
 
 
 
 
-# client = MongoClient()
-# db = client.testdb
-
-# images = db.images
-# image = images.find()
-# for i in image :
-#      print(i)
-# print("hello")
-# pil_img = Image.open(io.BytesIO(image['data']))
-# pil_img.imshow(pil_img)
-# pil_img.show()
 
 
-#db = db.nmcimages
-# encode your image to binary text
-# with open("classroom.jpg", "rb") as image:
-#     # read the image as text and convert it to binary
-#     image_string = base64.b64encode(image.read())
-#     image_string = "data:image/jpeg;base64," + str(image_string)
 
-# # create Gridfs instance
-# fs = gridfs.GridFS(db, "fs")
 
-# # add the image to your database
-# put_image = fs.put(image_string, encoding='utf-8')
+
+
+
+
+
