@@ -3,6 +3,7 @@ import io
 import base64
 from datetime import datetime, time
 import logging
+from PIL import Image
 logging.basicConfig(level=logging.INFO)
 def connectdb() :
 #if __name__=="__main__":
@@ -27,8 +28,8 @@ def connectatlasdb():
 
  
 # client = connectatlasdb()
-# #client = connectdb()
-# db = client.get_database("NMCVideoAnalytic")
+client = connectdb()
+db = client.get_database("NMCVideoAnalytic")
 # collection = db.MedicalCollege
 #dictionary = {"Full Name" : "Parjanya Chopkar", "Email" : "chopkarparjanya@gmail.com", "Message" : "Hello World"}
 #You have to create one dictionary for mat object and insert one row then only you can see table on mongoDb compass
