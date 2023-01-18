@@ -33,7 +33,7 @@ def get_med_list():
 
 @app.route('/count', methods=['GET','POST'])
 def countdf():
-    try:
+   
         logging.info("Inside countdf() function")
         headers = {
         'accept': 'application/json',
@@ -44,77 +44,86 @@ def countdf():
         camera_location_area = request.form.get("CameraLocationArea")
         camera_location_sub_area = request.form.get("CameraLocationSubArea")
         date_and_time = request.form.get("Test_DatetimeLocal")
-        datetime_object = datetime.strptime(date_and_time, "%Y-%m-%dT%H:%M")
-        date = datetime_object.strftime("%B %d, %Y")
-        timed = datetime_object.strftime("%I:%M %p")
-        #file = request.files.get("uploadfile")
-        client = c.connectdb()
-        db = client.get_database("NMCVideoAnalytic")
-        images = db.nmcimages
-
-        query = {
-        "date": {
-            "$eq": date
-        },
-        "time": {
-            "$lte": timed
-        },
-        "medicle_college": {
-            "$eq": medicle_college
-        },
-        "camera_location_area": {
-            "$eq": camera_location_area
-        },
-        "camera_location_sub_area": {
-            "$eq": camera_location_sub_area
-        }
-        }
-
-        image = images.find(query)
+        datetime_object = ''
         imagename = []
         counts = []
         imageview=[]
-        start = time.time()
-        page = ''
-        for i in image : 
-            files = {
-            'img': ('img.jpg',i.__getitem__("data")),
-            }
-            if i.__getitem__("count") is None:
-                
-                response = requests.post('http://localhost:5008/api/v1/headcount', files=files)
-                #response=502
-                if (response.status_code >= 200 and response.status_code<=300):
-                    #if(response.ok):
-                    count = json.loads(response.text)
-                    count = count.__getitem__("head-count")
-                    filtr = {"imagename":i.__getitem__("imagename")}
-                    updtval = {"$set":{"count":count}} 
-                    db.nmcimages.update_one(filtr,updtval)      
-                else:
-                    page='servicedown.html'
-                    break
-            else :
-                count = i.__getitem__("count")
-            imagename.append(i.__getitem__("imagename"))
-            imagev = base64.b64encode(i.__getitem__("data"))
-            imagev = imagev.decode('utf-8')
-            imagev = "data:image/jpe    g;base64," + imagev
-            imageview.append(imagev)
-            counts.append(count)
-            page='index.html'
-        if len(page) == 0:
-            page='index.html'
-        length = len(counts)
-        end = time.time()
-        total_time = end - start
-        logging.info("Done from countdf()" + str(total_time))
-    except Exception as e:
-        print(e) 
-        logging.info("Inside exception of countdf()")
+        page = 'index.html'
+        noRecordflag=True
+        length = 0
+        if medicle_college and camera_location_area and camera_location_sub_area and date_and_time :
+            try: 
+                datetime_object = datetime.strptime(date_and_time, "%Y-%m-%dT%H:%M")
+                date = datetime_object.strftime("%B %d, %Y")
+                timed = datetime_object.strftime("%I:%M %p")
+            #file = request.files.get("uploadfile")
+                client = c.connectdb()
+                db = client.get_database("NMCVideoAnalytic")
+                images = db.nmcimages
 
-    finally:
-        client.close()
+                query = {
+                "date": {
+                    "$eq": date
+                },
+                "time": {
+                    "$lte": timed
+                },
+                "medicle_college": {
+                    "$eq": medicle_college
+                },
+                "camera_location_area": {
+                    "$eq": camera_location_area
+                },
+                "camera_location_sub_area": {
+                    "$eq": camera_location_sub_area
+                }
+                }
+
+                image = images.find(query)
+            
+                start = time.time()
+                
+                for i in image : 
+                    files = {
+                    'img': ('img.jpg',i.__getitem__("data")),
+                    }
+                    if i.__getitem__("count") is None:
+                        
+                        response = requests.post('http://localhost:5008/api/v1/headcount', files=files)
+                        #response=502
+                        if (response.status_code >= 200 and response.status_code<=300):
+                            #if(response.ok):
+                            count = json.loads(response.text)
+                            count = count.__getitem__("head-count")
+                            filtr = {"imagename":i.__getitem__("imagename")}
+                            updtval = {"$set":{"count":count}} 
+                            db.nmcimages.update_one(filtr,updtval)      
+                        else:
+                            page='servicedown.html'
+                            break
+                    else :
+                        count = i.__getitem__("count")
+                    imagename.append(i.__getitem__("imagename"))
+                    imagev = base64.b64encode(i.__getitem__("data"))
+                    imagev = imagev.decode('utf-8')
+                    imagev = "data:image/jpe    g;base64," + imagev
+                    imageview.append(imagev)
+                    counts.append(count)
+                    page='index.html'
+                    noRecordflag=False
+                if len(page) == 0:
+                    page='index.html'
+                    noRecordflag=True
+                length = len(counts)
+                end = time.time()
+                total_time = end - start
+                logging.info("Done from countdf()" + str(total_time))
+            except Exception as e:
+                print(e) 
+                logging.info("Inside exception of countdf()")
+
+            finally:
+                client.close()
     # files = {
     #     'img': ('img.jpg',file),
     # }
@@ -127,7 +136,7 @@ def countdf():
     # imagename = ["abc.png","pqr.png"]
     # length = 2
     #return render_template('thankyou.html', medicle_college=medicle_college, camera_location_area=camera_location_area, camera_location_sub_area=camera_location_sub_area,date_and_time=date_and_time,count=counts,filename=imagename,length=length,imageview=imageview) 
-    return render_template(page, med_clg_list=med_clg_list,medicle_college=medicle_college, camera_location_area=camera_location_area, camera_location_sub_area=camera_location_sub_area,date_and_time=datetime_object,count=counts,filename=imagename,length=length,imageview=imageview) 
+        return render_template(page, med_clg_list=med_clg_list,medicle_college=medicle_college, camera_location_area=camera_location_area, camera_location_sub_area=camera_location_sub_area,date_and_time=datetime_object,count=counts,filename=imagename,length=length,imageview=imageview,noRecordflag=noRecordflag) 
     #return jsonify( med_clg_list=med_clg_list,medicle_college=medicle_college, camera_location_area=camera_location_area, camera_location_sub_area=camera_location_sub_area,date_and_time=datetime_object,count=counts,filename=imagename,length=length,imageview=imageview)
 @app.route('/back', methods=['GET','POST'])
 def back():

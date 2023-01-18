@@ -87,7 +87,7 @@
         </div>
       </div>  
           {% 
-           if medicle_college and camera_location_area and camera_location_sub_area and date_and_time and filename and count : %}
+           if medicle_college and camera_location_area and camera_location_sub_area and date_and_time  : %}
           <form action="back" method="POST">
          
             <h1 align="center" style="width:100%; padding-top:10px; float:left; clear:both;">DashBoard</h1><br><br>
@@ -115,18 +115,19 @@
              </tbody>
              <tbody align="center">
              <tr>
-               <td class="table-warning"><b>Date </b></td>
+               <td class="table-warning"><b>On Date </b></td>
                <td class="table-warning"><b>{{date_and_time.strftime("%B %d, %Y")}}</b></td>
              </tr>
            </tbody>
            <tbody align="center">
              <tr>
-               <td class="table-info"><b>Time </b></td>
+               <td class="table-info"><b>Before Time </b></td>
                <td class="table-info"><b>{{date_and_time.strftime("%I:%M %p")}}</b></td>
              </tr>
            </tbody>
-             <br>
-             <br>
+           
+           
+             
              <table  style="width:50%" align="center" border="1px solid black">
                <tbody align="center">
                  <tr align="center">
@@ -136,6 +137,7 @@
                   
                  </tr>
                </tbody>
+               {% if noRecordflag==false  %}
                <tbody align="center">
                {% for i in range(length) :  %}
                <tr>
@@ -160,12 +162,22 @@
              </table>
        
            <br>
+           {% else :  %}
+          <h2 align="center" style="width:100%; float:left; ">No Record Found</h2>
+           {%endif%}
            <!-- <div class="text-center">
            <button type="submit" class="btn btn-primary" >Back</button>
             </div> -->
          </form>
          <br>
-     {% endif  %}
+         
+         {%endif%}
+     <!-- {% if noRecordflag==true  %}
+        </br>
+      </br>
+      <h2 align="center" style="width:100%; padding-top:10px; float:left; clear:both;">No Record Found</h2><br><br>
+
+     {%endif%} -->
 
            <!-- <div id="tabld"></div>   -->
        
