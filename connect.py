@@ -30,7 +30,7 @@ def connectatlasdb():
 # client = connectatlasdb()
 client = connectdb()
 db = client.get_database("NMCVideoAnalytic")
-# collection = db.MedicalCollege
+collection = db.MedicalCollege
 #dictionary = {"Full Name" : "Parjanya Chopkar", "Email" : "chopkarparjanya@gmail.com", "Message" : "Hello World"}
 #You have to create one dictionary for mat object and insert one row then only you can see table on mongoDb compass
 #collection.insert_one(dictionary)
@@ -96,7 +96,7 @@ db = client.get_database("NMCVideoAnalytic")
 # print("Inserted Successfully")
 
 
-#Important to insert images
+# #Important to insert images
 
 # images = db.nmcimages
 # #Image1
