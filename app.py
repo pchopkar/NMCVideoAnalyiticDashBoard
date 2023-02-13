@@ -15,8 +15,7 @@ app = Flask(__name__)
 
 
 def firstpage():
-    return render_template("videoframe.html") 
-
+    return render_template("hello.html") 
 @app.route('/')
 def indexpage():
     logging.info("Opening Index.html")
@@ -63,12 +62,17 @@ def countdf():
         if medicle_college and camera_location_area and camera_location_sub_area and date_and_time :
             try: 
                 datetime_object = datetime.strptime(date_and_time, "%Y-%m-%dT%H:%M")
-                date = datetime_object.strftime("%B %d, %Y")
-                timed = datetime_object.strftime("%I:%M %p")
-            #file = request.files.get("uploadfile")
+                # date = datetime_object.strftime("%B %d, %Y")
+                # timed = datetime_object.strftime("%I:%M %p")
+                #timed= datetime.strptime(timed, "%I:%M %p")
+                #file = request.files.get("uploadfile")
+                # date = datetime.strptime(date_and_time, "%m/%d/%Y").date()
+                # timed = datetime.strptime(date_and_time, "%I:%M %p").time()
+                date = datetime_object.strftime('%B %d, %Y')
+                timed = datetime_object.strftime('%H:%M')
                 client = c.connectdb()
                 db = client.get_database("NMCVideoAnalytic")
-                images = db.nmcimages2
+                images = db.nmcimages
 
                 query = {
                 "date": {
@@ -94,7 +98,7 @@ def countdf():
                 
                 for i in image : 
                     files = {
-                    'img': ('img.jpg',i.__getitem__("data")),
+                    'img': ('img.jpg',i.__getitem__("frame_data")),
                     }
                     if i.__getitem__("count") is None:
                         
@@ -104,7 +108,7 @@ def countdf():
                             #if(response.ok):
                             count = json.loads(response.text)
                             count = count.__getitem__("head-count")
-                            filtr = {"imagename":i.__getitem__("imagename")}
+                            filtr = {"imagename":i.__getitem__("image_name")}
                             updtval = {"$set":{"count":count}} 
                             db.nmcimages.update_one(filtr,updtval)      
                         else:
@@ -112,8 +116,8 @@ def countdf():
                             break
                     else :
                         count = i.__getitem__("count")
-                    imagename.append(i.__getitem__("imagename"))
-                    imagev = base64.b64encode(i.__getitem__("data"))
+                    imagename.append(i.__getitem__("image_name"))
+                    imagev = base64.b64encode(i.__getitem__("frame_data"))
                     imagev = imagev.decode('utf-8')
                     imagev = "data:image/jpe    g;base64," + imagev
                     imageview.append(imagev)

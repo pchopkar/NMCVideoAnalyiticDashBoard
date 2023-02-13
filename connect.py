@@ -96,74 +96,99 @@ collection = db.MedicalCollege
 # print("Inserted Successfully")
 
 
-# #Important to insert images
+#Important to insert images
 
 # images = db.nmcimages
-# #Image1
+
 # now = datetime.utcnow()
-# date = now.strftime("%B %d, %Y")
-# timed = now.strftime("%I:%M %p")
+# date = now.date()
+# timed = now.time()
+# #date = datetime.combine(date, datetime.time(0, 0))
+# date = date.strftime("%B %d, %Y")
+# # date = datetime.strptime(date,"%B %d, %Y").date()
+# timed = timed.strftime("%I:%M %p")
+# # timed = datetime.strptime(str(now.time()),"%I:%M %p")
+# # timed = datetime.combine(datetime(1900, 1, 1), timed)
+
+
 # im = Image.open("classroom.jpg") 
 # image_bytes = io.BytesIO()
 # im.save(image_bytes, format='png')
+
 # image = {
-#     'imagename' : im.filename,
-#     'data': image_bytes.getvalue(),
-#     'count' : None,
-#     "date": date,
-#     "time": timed
-# }
+#                     "frame_number": 1,
+#                     "image_name": im.filename,
+#                     "frame_data": image_bytes.getvalue(),
+#                     "count" : 20,
+#                     "date": date,
+#                     "time": timed,
+#                     "medicle_college" : "Nagpur Medical College",
+#                     "camera_location_area" : "OPD",
+#                     "camera_location_sub_area" : "Gynaecological"
+#                 }
 # image_id = images.insert_one(image).inserted_id
 # print("Inserted 1")
 
 # #Image2
-# now = datetime.utcnow()
-# date = now.strftime("%B %d, %Y")
-# timed = now.strftime("%I:%M %p")
+# # now = datetime.utcnow()
+# # date = now.strftime("%B %d, %Y")
+# # timed = now.strftime("%I:%M %p")
 # im = Image.open("NMC.png") 
 # image_bytes = io.BytesIO()
 # im.save(image_bytes, format='png')
 # image = {
-#     'imagename' : im.filename,
-#     'data': image_bytes.getvalue(),
-#     'count' : None,
-#     "date": date,
-#     "time": timed
-# }
+#                     "frame_number": 2,
+#                     "image_name": im.filename,
+#                     "frame_data": image_bytes.getvalue(),
+#                     "count" : 30,
+#                     "date": date,
+#                     "time": timed,
+#                     "medicle_college" : "Nagpur Medical College",
+#                     "camera_location_area" : "OPD",
+#                     "camera_location_sub_area" : "Gynaecological"
+#                 }
 # image_id = images.insert_one(image).inserted_id
 # print("Inserted 2")
 
 # #Image3
-# now = datetime.utcnow()
-# date = now.strftime("%B %d, %Y")
-# timed = now.strftime("%I:%M %p")
+# # now = datetime.utcnow()
+# # date = now.strftime("%B %d, %Y")
+# # timed = now.strftime("%I:%M %p")
 # im = Image.open("opd-inner.png") 
 # image_bytes = io.BytesIO()
 # im.save(image_bytes, format='png')
 # image = {
-#     'imagename' : im.filename,
-#     'data': image_bytes.getvalue(),
-#     'count' : None,
-#     "date": date,
-#     "time": timed
-# }
+#                     "frame_number": 3,
+#                     "image_name": im.filename,
+#                     "frame_data": image_bytes.getvalue(),
+#                     "count" : 40,
+#                     "date": date,
+#                     "time": timed,
+#                     "medicle_college" : "Nagpur Medical College",
+#                     "camera_location_area" : "OPD",
+#                     "camera_location_sub_area" : "Gynaecological"
+#                 }
 # image_id = images.insert_one(image).inserted_id
 # print("Inserted 3")
 
 # #Image4
-# now = datetime.utcnow()
-# date = now.strftime("%B %d, %Y")
-# timed = now.strftime("%I:%M %p")
+# # now = datetime.utcnow()
+# # date = now.strftime("%B %d, %Y")
+# # timed = now.strftime("%I:%M %p")
 # im = Image.open("opd.jpg") 
 # image_bytes = io.BytesIO()
 # im.save(image_bytes, format='png')
 # image = {
-#     'imagename' : im.filename,
-#     'data': image_bytes.getvalue(),
-#     'count' : None,
-#     "date": date,
-#     "time": timed
-# }
+#                     "frame_number": 4,
+#                     "image_name": im.filename,
+#                     "frame_data": image_bytes.getvalue(),
+#                     "count" : 50,
+#                     "date": date,
+#                     "time": timed,
+#                     "medicle_college" : "Nagpur Medical College",
+#                     "camera_location_area" : "OPD",
+#                     "camera_location_sub_area" : "Gynaecological"
+#                 }
 # image_id = images.insert_one(image).inserted_id
 # print("Inserted 4")
 
